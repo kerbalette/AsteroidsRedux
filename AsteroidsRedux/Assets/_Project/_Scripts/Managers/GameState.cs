@@ -1,6 +1,7 @@
 using System;
 
-
+namespace MangledMonster.Managers
+{
     [Serializable]
     public enum GameState
     {
@@ -10,7 +11,6 @@ using System;
         Win = 3,
         Lose = 4,
     }
-    
-
+}   
 
 

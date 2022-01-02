@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using MangledMonster.Utilities;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-
+namespace MangledMonster.Managers
+{
     public class GameManager : StaticInstance<GameManager>
     {
         public static event Action<GameState> OnBeforeStateChanged;
@@ -40,8 +39,6 @@ using UnityEngine.SceneManagement;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
-           
-            
             OnAfterStateChanged?.Invoke(newState);
             Debug.Log($"New state: {newState}");
         }
@@ -51,9 +48,9 @@ using UnityEngine.SceneManagement;
             ChangeState(GameState.SpawningEnemies);
         }
         
-
         private void HandleStarting()
         {
             ChangeState(GameState.SpawningHeroes);
         }
     }
+}
