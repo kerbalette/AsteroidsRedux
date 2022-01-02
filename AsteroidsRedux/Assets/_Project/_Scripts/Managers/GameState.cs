@@ -1,16 +1,16 @@
 using System;
 
-namespace MangledMonster.Managers
-{
+
     [Serializable]
     public enum GameState
     {
-        TitleScreen = 0,
-        InGame = 1,
-        Win = 2,
-        Loose = 3,
+        Starting = 0,
+        SpawningHeroes = 1,
+        SpawningEnemies = 2,
+        Win = 3,
+        Lose = 4,
     }
     
-}
+
 
 

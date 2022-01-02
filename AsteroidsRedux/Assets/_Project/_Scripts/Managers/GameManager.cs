@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MangledMonster.Utilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace MangledMonster.Managers
-{
+
     public class GameManager : StaticInstance<GameManager>
     {
         public static event Action<GameState> OnBeforeStateChanged;
@@ -15,7 +14,7 @@ namespace MangledMonster.Managers
 
         private void Start()
         {
-            ChangeState(GameState.TitleScreen);
+            ChangeState(GameState.Starting);
         }
 
         private void ChangeState(GameState newState)
@@ -26,26 +25,35 @@ namespace MangledMonster.Managers
             State = newState;
             switch (newState)
             {
-                case GameState.TitleScreen:
-                    HandleTitleScreen();
+                case GameState.Starting:
+                    HandleStarting();
                     break;
-                case GameState.InGame:
+                case GameState.SpawningHeroes:
+                    HandleSpawningHeroes();
+                    break;
+                case GameState.SpawningEnemies:
                     break;
                 case GameState.Win:
                     break;
-                case GameState.Loose:
+                case GameState.Lose:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
+           
             
             OnAfterStateChanged?.Invoke(newState);
             Debug.Log($"New state: {newState}");
         }
 
-        private void HandleTitleScreen()
+        private void HandleSpawningHeroes()
         {
-            
+            ChangeState(GameState.SpawningEnemies);
+        }
+        
+
+        private void HandleStarting()
+        {
+            ChangeState(GameState.SpawningHeroes);
         }
     }
-}
