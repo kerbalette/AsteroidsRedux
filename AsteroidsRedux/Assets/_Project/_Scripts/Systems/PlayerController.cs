@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
         [SerializeField] private float _turnSpeed = 400f;
+        [SerializeField] private GameObject _thrustSprite;
         
         private PlayerInputActions _playerInputActions;
         private Rigidbody2D _rigidbody2D;
@@ -30,9 +31,20 @@ public class PlayerController : MonoBehaviour
 
         private void Start()
         {
-
+                _playerInputActions.Ingame.Thrust.started += OnThrustStarted;
+                _playerInputActions.Ingame.Thrust.canceled += OnThrustCancelled;
         }
-        
+
+        private void OnThrustCancelled(InputAction.CallbackContext obj)
+        {
+                _thrustSprite.SetActive(false);
+        }
+
+        private void OnThrustStarted(InputAction.CallbackContext obj)
+        {
+                _thrustSprite.SetActive(true);
+        }
+
         private void Update()
         {
                 transform.Rotate(0f,0f,(_playerInputActions.Ingame.Movement.ReadValue<float>()  * _turnSpeed * Time.deltaTime )) ;
