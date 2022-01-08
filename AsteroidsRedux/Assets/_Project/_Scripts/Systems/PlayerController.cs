@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
         
         private PlayerInputActions _playerInputActions;
         private Rigidbody2D _rigidbody2D;
+        private Vector2 _screenBounds;
 
         private void Awake()
         {
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour
         {
                 _playerInputActions.Ingame.Thrust.started += OnThrustStarted;
                 _playerInputActions.Ingame.Thrust.canceled += OnThrustCancelled;
+
+                _screenBounds =
+                        Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
+                                Camera.main.transform.position.z));
+                Debug.Log(_screenBounds);
         }
 
         private void OnThrustCancelled(InputAction.CallbackContext obj)
@@ -48,6 +54,26 @@ public class PlayerController : MonoBehaviour
         private void Update()
         {
                 transform.Rotate(0f,0f,(_playerInputActions.Ingame.Movement.ReadValue<float>()  * _turnSpeed * Time.deltaTime )) ;
+
+                CheckBoundaries();
+        }
+
+        private void CheckBoundaries()
+        {
+                if (transform.position.x > _screenBounds.x)
+                        transform.position = new Vector3(_screenBounds.x * -1, transform.position.y, transform.position.z);
+
+
+                if (transform.position.x < _screenBounds.x * -1)
+                        transform.position = new Vector3(_screenBounds.x, transform.position.y, transform.position.z);
+
+
+                if (transform.position.y > _screenBounds.y)
+                        transform.position = new Vector3(transform.position.x, _screenBounds.y * -1,
+                                transform.position.z);
+
+                if (transform.position.y < _screenBounds.y * -1)
+                        transform.position = new Vector3(transform.position.x, _screenBounds.y, transform.position.z);
         }
 
         private void FixedUpdate()
