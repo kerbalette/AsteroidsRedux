@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5804103694479344825}
   - component: {fileID: 7072707438133359565}
+  - component: {fileID: 1276525579}
   m_Layer: 0
   m_Name: Asteroid_1
   m_TagString: Untagged
@@ -50,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c72a6b6a046cbd845887acce723ccee8, type: 2}
+  - {fileID: 2100000, guid: c5e42150c9e76334aac03eb977d0d464, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,3 +83,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1276525579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841552771874473678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce73196f7080164fb79a0949adcf377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 100
