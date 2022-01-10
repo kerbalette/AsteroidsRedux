@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Asteroid : MonoBehaviour
 {
     [SerializeField] private float _rotationSpeed = 100f;

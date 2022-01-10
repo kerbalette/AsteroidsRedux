@@ -46,6 +46,15 @@ namespace MangledMonster.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef4113f3-d861-4e74-aab0-4f12f4629fe6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -125,6 +134,28 @@ namespace MangledMonster.InputSystem
                     ""action"": ""Thrust"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3d9cb01-87fe-463b-b257-f3fd6d2d6276"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1da3f821-75df-4ef0-b183-59a73b45f45c"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -135,6 +166,7 @@ namespace MangledMonster.InputSystem
             m_Ingame = asset.FindActionMap("Ingame", throwIfNotFound: true);
             m_Ingame_Movement = m_Ingame.FindAction("Movement", throwIfNotFound: true);
             m_Ingame_Thrust = m_Ingame.FindAction("Thrust", throwIfNotFound: true);
+            m_Ingame_Fire = m_Ingame.FindAction("Fire", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -196,12 +228,14 @@ namespace MangledMonster.InputSystem
         private IIngameActions m_IngameActionsCallbackInterface;
         private readonly InputAction m_Ingame_Movement;
         private readonly InputAction m_Ingame_Thrust;
+        private readonly InputAction m_Ingame_Fire;
         public struct IngameActions
         {
             private @PlayerInputActions m_Wrapper;
             public IngameActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Ingame_Movement;
             public InputAction @Thrust => m_Wrapper.m_Ingame_Thrust;
+            public InputAction @Fire => m_Wrapper.m_Ingame_Fire;
             public InputActionMap Get() { return m_Wrapper.m_Ingame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -217,6 +251,9 @@ namespace MangledMonster.InputSystem
                     @Thrust.started -= m_Wrapper.m_IngameActionsCallbackInterface.OnThrust;
                     @Thrust.performed -= m_Wrapper.m_IngameActionsCallbackInterface.OnThrust;
                     @Thrust.canceled -= m_Wrapper.m_IngameActionsCallbackInterface.OnThrust;
+                    @Fire.started -= m_Wrapper.m_IngameActionsCallbackInterface.OnFire;
+                    @Fire.performed -= m_Wrapper.m_IngameActionsCallbackInterface.OnFire;
+                    @Fire.canceled -= m_Wrapper.m_IngameActionsCallbackInterface.OnFire;
                 }
                 m_Wrapper.m_IngameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -227,6 +264,9 @@ namespace MangledMonster.InputSystem
                     @Thrust.started += instance.OnThrust;
                     @Thrust.performed += instance.OnThrust;
                     @Thrust.canceled += instance.OnThrust;
+                    @Fire.started += instance.OnFire;
+                    @Fire.performed += instance.OnFire;
+                    @Fire.canceled += instance.OnFire;
                 }
             }
         }
@@ -235,6 +275,7 @@ namespace MangledMonster.InputSystem
         {
             void OnMovement(InputAction.CallbackContext context);
             void OnThrust(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
         }
     }
 }

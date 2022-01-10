@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Project._Scripts.Units;
 using MangledMonster.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
         [SerializeField] private float _turnSpeed = 400f;
         [SerializeField] private GameObject _thrustSprite;
+        
         
         private PlayerInputActions _playerInputActions;
         private Rigidbody2D _rigidbody2D;
@@ -35,10 +37,20 @@ public class PlayerController : MonoBehaviour
                 _playerInputActions.Ingame.Thrust.started += OnThrustStarted;
                 _playerInputActions.Ingame.Thrust.canceled += OnThrustCancelled;
 
+                _playerInputActions.Ingame.Fire.performed += OnFirePerformed;
+
                 _screenBounds =
                         Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
                                 Camera.main.transform.position.z));
                 Debug.Log(_screenBounds);
+        }
+
+        private void OnFirePerformed(InputAction.CallbackContext obj)
+        {
+                var asteroid = AsteroidPool.Instance.Get();
+                asteroid.transform.rotation = transform.rotation;
+                asteroid.transform.position = transform.position;
+                asteroid.gameObject.SetActive(true);
         }
 
         private void OnThrustCancelled(InputAction.CallbackContext obj)
