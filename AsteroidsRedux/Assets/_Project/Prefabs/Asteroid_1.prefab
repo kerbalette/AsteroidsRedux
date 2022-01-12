@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5804103694479344825}
   - component: {fileID: 7072707438133359565}
   - component: {fileID: 1276525579}
-  - component: {fileID: 8619317808072876930}
+  - component: {fileID: 8011359872570313779}
   m_Layer: 0
   m_Name: Asteroid_1
   m_TagString: Untagged
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 100
---- !u!114 &8619317808072876930
+--- !u!114 &8011359872570313779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +106,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8841552771874473678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a6c727125c47e0987ae38769093966, type: 3}
+  m_Script: {fileID: 11500000, guid: 98cdf7f32c0852946945b1fb99d49c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30

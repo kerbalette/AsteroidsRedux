@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Project._Scripts.Units;
 using MangledMonster.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,10 +46,6 @@ public class PlayerController : MonoBehaviour
 
         private void OnFirePerformed(InputAction.CallbackContext obj)
         {
-                var asteroid = AsteroidPool.Instance.Get();
-                asteroid.transform.rotation = transform.rotation;
-                asteroid.transform.position = transform.position;
-                asteroid.gameObject.SetActive(true);
         }
 
         private void OnThrustCancelled(InputAction.CallbackContext obj)
