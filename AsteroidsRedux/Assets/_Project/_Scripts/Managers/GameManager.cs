@@ -19,7 +19,6 @@ namespace MangledMonster.Managers
         private void ChangeState(GameState newState)
         {
             OnBeforeStateChanged?.Invoke(newState);
-            Debug.Log($"Old state: {State}");
             
             State = newState;
             switch (newState)
@@ -40,7 +39,6 @@ namespace MangledMonster.Managers
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
             OnAfterStateChanged?.Invoke(newState);
-            Debug.Log($"New state: {newState}");
         }
 
         private void HandleSpawningHeroes()

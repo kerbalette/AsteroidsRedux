@@ -48,7 +48,7 @@
                 {
                     "name": "negative",
                     "id": "47e9e9ed-181b-4baa-8e8b-5bba5107d1d1",
-                    "path": "<Gamepad>/leftStick/left",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -70,7 +70,7 @@
                 {
                     "name": "positive",
                     "id": "cf4b9ec6-79a9-4e2c-a2ea-0c1bba280cf6",
-                    "path": "<Gamepad>/leftStick/right",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

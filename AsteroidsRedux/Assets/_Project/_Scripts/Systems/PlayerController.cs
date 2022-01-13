@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
         [SerializeField] private float _turnSpeed = 400f;
+        [SerializeField] private float _thrustSpeed = 2f;
         [SerializeField] private GameObject _thrustSprite;
         
         
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
                 _screenBounds =
                         Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
                                 Camera.main.transform.position.z));
-                Debug.Log(_screenBounds);
         }
 
         private void OnFirePerformed(InputAction.CallbackContext obj)
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         {
                 if (_playerInputActions.Ingame.Thrust.ReadValue<float>() > 0)
                 {
-                        _rigidbody2D.AddForce((transform.up * Time.fixedDeltaTime * 2f),ForceMode2D.Impulse);
+                        _rigidbody2D.AddForce((transform.up * Time.fixedDeltaTime * _thrustSpeed),ForceMode2D.Impulse);
                 }
         }
 }

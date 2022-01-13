@@ -10,7 +10,10 @@ public class ObjectPool : MonoBehaviour
         if (_objectPool.TryGetValue(gameObject.name, out Queue<GameObject> objectList))
         {
             if (objectList.Count == 0)
+            {
+                Debug.Log("This should not fire once");
                 return CreateNewObject(gameObject);
+            }
             else
             {
                 GameObject _object = objectList.Dequeue();
