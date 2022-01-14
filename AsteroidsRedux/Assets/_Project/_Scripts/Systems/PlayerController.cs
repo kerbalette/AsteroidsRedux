@@ -10,16 +10,28 @@ public class PlayerController : MonoBehaviour
         [SerializeField] private float _turnSpeed = 400f;
         [SerializeField] private float _thrustSpeed = 2f;
         [SerializeField] private GameObject _thrustSprite;
-        
-        
+        [SerializeField] private GameObject _bullet;
+        [SerializeField] private Transform _bulletSpawn;
+        [SerializeField] private float fireRate = 5f;
+
         private PlayerInputActions _playerInputActions;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _screenBounds;
+        private Coroutine fireCoroutine;
+        private WaitForSeconds rapidFireWait;
 
         private void Awake()
         {
                 _playerInputActions = new PlayerInputActions();
                 _rigidbody2D = GetComponent<Rigidbody2D>();
+                
+                _playerInputActions.Ingame.Thrust.started += OnThrustStarted;
+                _playerInputActions.Ingame.Thrust.canceled += OnThrustCancelled;
+
+                _playerInputActions.Ingame.Fire.started += _ => StartFiring();
+                _playerInputActions.Ingame.Fire.canceled += _ => StopFiring();
+
+                rapidFireWait = new WaitForSeconds(1 / fireRate);
         }
 
         private void OnEnable()
@@ -34,20 +46,37 @@ public class PlayerController : MonoBehaviour
 
         private void Start()
         {
-                _playerInputActions.Ingame.Thrust.started += OnThrustStarted;
-                _playerInputActions.Ingame.Thrust.canceled += OnThrustCancelled;
-
-                _playerInputActions.Ingame.Fire.performed += OnFirePerformed;
-
                 _screenBounds =
                         Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
                                 Camera.main.transform.position.z));
         }
 
-        private void OnFirePerformed(InputAction.CallbackContext obj)
+        private void StartFiring()
         {
+                fireCoroutine = StartCoroutine(RapidFire());
         }
 
+        private void StopFiring()
+        {
+                if (fireCoroutine != null)
+                        StopCoroutine(fireCoroutine);
+        }
+
+        private void Shoot()
+        {
+                var bullet = Instantiate(_bullet, _bulletSpawn.position, Quaternion.identity);
+                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
+        }
+
+        private IEnumerator RapidFire()
+        {
+                while (true)
+                {
+                        Shoot();
+                        yield return rapidFireWait;
+                }
+        }
+        
         private void OnThrustCancelled(InputAction.CallbackContext obj)
         {
                 _thrustSprite.SetActive(false);

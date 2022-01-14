@@ -261,4 +261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turnSpeed: 400
+  _thrustSpeed: 2
   _thrustSprite: {fileID: 339364899}
+  _bullet: {fileID: 7650127257447755157, guid: 3728f87634968824fb2715ee9337430f, type: 3}
+  _bulletSpawn: {fileID: 876146008001163180}
+  fireRate: 5
