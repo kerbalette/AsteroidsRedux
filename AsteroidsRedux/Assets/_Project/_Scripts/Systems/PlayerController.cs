@@ -65,7 +65,9 @@ public class PlayerController : MonoBehaviour
         private void Shoot()
         {
                 var bullet = Instantiate(_bullet, _bulletSpawn.position, Quaternion.identity);
-                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
+                bullet.transform.parent = transform;
+                
+                // bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
         }
 
         private IEnumerator RapidFire()
