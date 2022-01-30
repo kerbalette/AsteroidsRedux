@@ -32,8 +32,7 @@ public class Bullet : MonoBehaviour
 
 
     private void OnCollisionEnter2D(Collision2D collision)
-    { 
-        onCollision?.Invoke(collision.gameObject, _damageAmount); 
+    {
         Destroy(this.gameObject);
     }
 }

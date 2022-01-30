@@ -12,22 +12,4 @@ public class Asteroid : MonoBehaviour
     {
         transform.Rotate(0,0,_rotationSpeed * Time.deltaTime);
     }
-
-    private void OnEnable()
-    {
-        Bullet.onCollision += BulletOnonCollision;
-    }
-
-    private void OnDisable()
-    {
-        Bullet.onCollision -= BulletOnonCollision;
-    }
-
-
-
-    private void BulletOnonCollision(GameObject arg1, int arg2)
-    {
-        if(arg1 == this.gameObject)
-            Debug.Log("GameObject: " + arg1.name + ", " + arg2.ToString());
-    }
 }
