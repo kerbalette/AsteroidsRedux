@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841552771874473678, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}
@@ -704,7 +704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841552771874473678, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}
@@ -1115,6 +1115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 755588249, guid: ff67a1bc0040e78409ea221ff4fa7084, type: 3}
+      propertyPath: _bullet
+      value: 
+      objectReference: {fileID: 8310163233148721350, guid: 3728f87634968824fb2715ee9337430f, type: 3}
     - target: {fileID: 6386224126301483565, guid: ff67a1bc0040e78409ea221ff4fa7084, type: 3}
       propertyPath: m_Name
       value: PlayerShip
@@ -1222,7 +1226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841552771874473678, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e986d0bb6517252468f9bb6a3a1e1629, type: 3}

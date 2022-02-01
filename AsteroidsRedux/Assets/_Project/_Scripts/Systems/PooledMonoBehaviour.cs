@@ -19,8 +19,9 @@ public class PooledMonoBehaviour : MonoBehaviour
         var pooledObject = pool.Get<T>();
         
         if (enable)
+        {
             pooledObject.gameObject.SetActive(true);
-
+        }
         return pooledObject;
     }
 
@@ -30,7 +31,9 @@ public class PooledMonoBehaviour : MonoBehaviour
 
         pooledObject.transform.position = position;
         pooledObject.transform.rotation = rotation;
-
+        Bullet obj = pooledObject as Bullet;
+        obj.Rotation = rotation;
+        
         return pooledObject;
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MangledMonster.InputSystem;
+using MangledMonster.Systems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
         [SerializeField] private float _turnSpeed = 400f;
         [SerializeField] private float _thrustSpeed = 2f;
         [SerializeField] private GameObject _thrustSprite;
-        [SerializeField] private GameObject _bullet;
+        [SerializeField] private Bullet _bullet;
         [SerializeField] private Transform _bulletSpawn;
         [SerializeField] private float fireRate = 5f;
 
@@ -64,9 +65,12 @@ public class PlayerController : MonoBehaviour
 
         private void Shoot()
         {
-                var bullet = Instantiate(_bullet, _bulletSpawn.position, Quaternion.identity);
-                bullet.transform.parent = transform;
                 
+                var bullet = _bullet.Get<Bullet>(_bulletSpawn.position, _bulletSpawn.rotation);
+                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
+                /*var bullet = Instantiate(_bullet, _bulletSpawn.position, Quaternion.identity);
+                bullet.transform.parent = transform;*/
+
                 // bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
         }
 
