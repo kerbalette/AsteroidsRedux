@@ -8,18 +8,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-        [SerializeField] private float _turnSpeed = 400f;
-        [SerializeField] private float _thrustSpeed = 2f;
-        [SerializeField] private GameObject _thrustSprite;
-        [SerializeField] private Bullet _bullet;
-        [SerializeField] private Transform _bulletSpawn;
+        [SerializeField] private float turnSpeed = 400f;
+        [SerializeField] private float thrustSpeed = 2f;
+        [SerializeField] private GameObject thrustSprite;
+ //       [SerializeField] private Bullet _bullet;
+        [SerializeField] private GameObject bulletSpawn;
         [SerializeField] private float fireRate = 5f;
+        [SerializeField] private float bulletSpeed = 10f;
 
         private PlayerInputActions _playerInputActions;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _screenBounds;
-        private Coroutine fireCoroutine;
-        private WaitForSeconds rapidFireWait;
+        private Coroutine _fireCoroutine;
+        private WaitForSeconds _rapidFireWait;
+        private PooledBulletManager _pooledBulletManager;
 
         private void Awake()
         {
@@ -32,7 +34,8 @@ public class PlayerController : MonoBehaviour
                 _playerInputActions.Ingame.Fire.started += _ => StartFiring();
                 _playerInputActions.Ingame.Fire.canceled += _ => StopFiring();
 
-                rapidFireWait = new WaitForSeconds(1 / fireRate);
+                _pooledBulletManager = bulletSpawn.GetComponent<PooledBulletManager>();
+                _rapidFireWait = new WaitForSeconds(1 / fireRate);
         }
 
         private void OnEnable()
@@ -54,20 +57,23 @@ public class PlayerController : MonoBehaviour
 
         private void StartFiring()
         {
-                fireCoroutine = StartCoroutine(RapidFire());
+                _fireCoroutine = StartCoroutine(RapidFire());
         }
 
         private void StopFiring()
         {
-                if (fireCoroutine != null)
-                        StopCoroutine(fireCoroutine);
+                if (_fireCoroutine != null)
+                        StopCoroutine(_fireCoroutine);
         }
 
         private void Shoot()
         {
-                
-                var bullet = _bullet.Get<Bullet>(_bulletSpawn.position, _bulletSpawn.rotation);
-                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
+                _pooledBulletManager.FireBullet(bulletSpeed);
+
+                //var bullet = _bullet.Get<Bullet>(_bulletSpawn.position, _bulletSpawn.rotation);
+                //bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 20f,ForceMode2D.Impulse);
+
+
                 /*var bullet = Instantiate(_bullet, _bulletSpawn.position, Quaternion.identity);
                 bullet.transform.parent = transform;*/
 
@@ -79,23 +85,23 @@ public class PlayerController : MonoBehaviour
                 while (true)
                 {
                         Shoot();
-                        yield return rapidFireWait;
+                        yield return _rapidFireWait;
                 }
         }
         
         private void OnThrustCancelled(InputAction.CallbackContext obj)
         {
-                _thrustSprite.SetActive(false);
+                thrustSprite.SetActive(false);
         }
 
         private void OnThrustStarted(InputAction.CallbackContext obj)
         {
-                _thrustSprite.SetActive(true);
+                thrustSprite.SetActive(true);
         }
 
         private void Update()
         {
-                transform.Rotate(0f,0f,(_playerInputActions.Ingame.Movement.ReadValue<float>()  * _turnSpeed * Time.deltaTime )) ;
+                transform.Rotate(0f,0f,(_playerInputActions.Ingame.Movement.ReadValue<float>()  * turnSpeed * Time.deltaTime )) ;
 
                 CheckBoundaries();
         }
@@ -122,7 +128,7 @@ public class PlayerController : MonoBehaviour
         {
                 if (_playerInputActions.Ingame.Thrust.ReadValue<float>() > 0)
                 {
-                        _rigidbody2D.AddForce((transform.up * Time.fixedDeltaTime * _thrustSpeed),ForceMode2D.Impulse);
+                        _rigidbody2D.AddForce((transform.up * Time.fixedDeltaTime * thrustSpeed),ForceMode2D.Impulse);
                 }
         }
 }

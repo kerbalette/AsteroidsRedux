@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    [SerializeField] private float _rotationSpeed = 100f;
-    [SerializeField] private int _scoreAmount = 20;
+    [SerializeField] private float rotationSpeed = 100f;
+    [SerializeField] private int scoreAmount = 20;
     private void Update()
     {
-        transform.Rotate(0,0,_rotationSpeed * Time.deltaTime);
+        transform.Rotate(0,0,rotationSpeed * Time.deltaTime);
     }
 }
